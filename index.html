@@ -25,7 +25,7 @@
 
 				params.sort();
 
-				var pad = Math.max(...([...params.keys()].map(key => key.length)));
+				var pad = Math.max(...[...params.keys()].map(key => key.length));
 
 				pad = isFinite(pad) ? pad : 0;
 
@@ -33,7 +33,12 @@
 
 				for(var entry of params.entries())
 				{
-					lines.push(entry[0].padEnd(pad) + '\t' + entry[1]); 
+					var left = entry[0].trim().padEnd(pad);
+					var right = entry[1].trim();
+
+					var line = left + (right ? '\t' + right : '');
+
+					lines.push(line); 
 				}
 
 				output.value = lines.join('\n');
@@ -42,29 +47,46 @@
 			{
 				console.error(error);
 			}
-        }
+		}
 
 		function highlight(output)
 		{
-			var caret = output.selectionStart;
 			var value = output.value;
+			var caret = output.selectionStart;
 			var roi = value.substr(0, caret);
 
-			var words = value.split('\t').join('\n').split('\n');
-			var word = roi.split('\t').join('\n').split('\n').length - 1;
+			var words = value.split(/\t|\n/);
+			var word = roi.split(/\t|\n/).length - 1;
 
-			var start = 0;
-			var end = 0;
+			output.selectionStart = 0;
+			output.selectionEnd = 0;
 
-			for (var i = 0; i < word; i++)
+			if (!value)
 			{
-				start += words[i].length + 1;
+				return;
 			}
 
-			end = start + words[word].trim().length;
+			try
+			{
+				var start = 0;
+				var end = 0;
 
-			output.selectionStart = start;
-			output.selectionEnd = end;
+				for (var i = 0; i < word; i++)
+				{
+					start += words[i].length + 1;
+				}
+
+				end = start + words[word].trim().length;
+
+				output.selectionStart = start;
+				output.selectionEnd = end;
+
+				document.execCommand('copy');
+			}
+			catch(error)
+			{
+				console.error(error);
+			}
 		}
 
 	</script>
