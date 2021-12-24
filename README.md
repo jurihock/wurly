@@ -1,4 +1,4 @@
-Wurly is a web tool which extracts [search params](https://url.spec.whatwg.org/#urlsearchparams) from the specified URL.
+Wurly is a web tool which extracts the [query string](https://en.wikipedia.org/wiki/Query_string) from the specified URL.
 
 Use one of the following links below if you wanna try it now:
 
