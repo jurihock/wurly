@@ -7,6 +7,16 @@
 
 	<script type="text/javascript">
 
+		function sync(input)
+		{
+			var query = new URLSearchParams(window.location.search);
+
+			if (query.has('url'))
+			{
+				input.value = query.get('url').trim();
+			}
+		}
+
 		function grind(input, output)
 		{
 			var value = input.value.trim();
@@ -23,17 +33,17 @@
 			try
 			{
 				var url = new URL(value);
-				var params = new URLSearchParams(url.search);
+				var query = new URLSearchParams(url.search);
 
-				params.sort();
+				query.sort();
 
-				var pad = Math.max(...[...params.keys()].map(key => key.length));
+				var pad = Math.max(...[...query.keys()].map(key => key.length));
 
 				pad = isFinite(pad) ? pad : 0;
 
 				var lines = [];
 
-				for(var entry of params.entries())
+				for(var entry of query.entries())
 				{
 					var left = entry[0].trim().padEnd(pad);
 					var right = entry[1].trim();
@@ -137,6 +147,9 @@
 		{
 			highlight(output);
 		});
+
+		sync(input);
+		grind(input, output);
 
 	</script>
 
