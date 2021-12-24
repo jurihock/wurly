@@ -7,7 +7,7 @@
 
 	<script type="text/javascript">
 
-		function wurly(input, output)
+		function grind(input, output)
 		{
 			var value = input.value.trim();
 
@@ -44,6 +44,29 @@
 			}
         }
 
+		function highlight(output)
+		{
+			var caret = output.selectionStart;
+			var value = output.value;
+			var roi = value.substr(0, caret);
+
+			var words = value.split('\t').join('\n').split('\n');
+			var word = roi.split('\t').join('\n').split('\n').length - 1;
+
+			var start = 0;
+			var end = 0;
+
+			for (var i = 0; i < word; i++)
+			{
+				start += words[i].length + 1;
+			}
+
+			end = start + words[word].trim().length;
+
+			output.selectionStart = start;
+			output.selectionEnd = end;
+		}
+
 	</script>
 
 </head>
@@ -78,7 +101,12 @@
 
 		input.addEventListener('input', function()
 		{
-			wurly(input, output);
+			grind(input, output);
+		});
+
+		output.addEventListener('click', function()
+		{
+			highlight(output);
 		});
 
 	</script>
