@@ -13,6 +13,7 @@
 
 			output.value = '';
 			output.rows = input.rows * 2;
+			output.placeholder = '';
 
 			if (!value)
 			{
@@ -48,6 +49,8 @@
 			catch(error)
 			{
 				console.error(error);
+
+				output.placeholder = 'Unnh! I\'m afraid you\'re out of luck, Captain! :~(';
 			}
 		}
 
@@ -102,13 +105,15 @@
 				<label for="input">URL</label>
 			</div>
 			<div class="">
-				<textarea autofocus id="input" rows="5" class="border rounded font-mono font-light p-1 w-full"></textarea>
+				<textarea autofocus id="input" rows="5" class="border rounded font-mono font-light p-1 w-full"
+				          placeholder="Please paste your URL right here..."></textarea>
 			</div>
 			<div class="my-3 text-xl font-medium">
 				<label for="output">URL Search Params</label>
 			</div>
 			<div class="">
-				<textarea readonly id="output" rows="10" class="border rounded bg-gray-50 font-mono font-light p-1 w-full"></textarea>
+				<textarea readonly id="output" rows="10" class="border rounded bg-gray-50 font-mono font-light p-1 w-full"
+				          placeholder=""></textarea>
 			</div>
 		</div>
 	</div>
