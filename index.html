@@ -12,6 +12,7 @@
 			var value = input.value.trim();
 
 			output.value = '';
+			output.rows = input.rows * 2;
 
 			if (!value)
 			{
@@ -42,6 +43,7 @@
 				}
 
 				output.value = lines.join('\n');
+				output.rows = Math.max(output.rows, lines.length);
 			}
 			catch(error)
 			{
@@ -106,7 +108,7 @@
 				<label for="output">URL Search Params</label>
 			</div>
 			<div class="">
-				<textarea readonly id="output" rows="20" class="border rounded bg-gray-50 font-mono font-light p-1 w-full"></textarea>
+				<textarea readonly id="output" rows="10" class="border rounded bg-gray-50 font-mono font-light p-1 w-full"></textarea>
 			</div>
 		</div>
 	</div>
